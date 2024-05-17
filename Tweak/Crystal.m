@@ -20,8 +20,11 @@ static void override_SBVolumeControl_increaseVolume(SBVolumeControl* self, SEL _
         setListeningMode(pfAboveThresholdMode);
     }
 
-    if (pfPauseMusicAtZeroVolume && [self _effectiveVolume] >= 0) {
-        [[objc_getClass("SBMediaController") sharedInstance] playForEventSource:0];
+    // Only play music if it was paused before.
+    if ([[objc_getClass("SBMediaController") sharedInstance] _nowPlayingInfo]) {
+        if (pfPauseMusicAtZeroVolume && [self _effectiveVolume] >= 0) {
+            [[objc_getClass("SBMediaController") sharedInstance] playForEventSource:0];
+        }
     }
 }
 

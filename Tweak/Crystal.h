@@ -23,6 +23,7 @@ BOOL pfPauseMusicAtZeroVolume;
 
 @interface SBMediaController : NSObject
 + (id)sharedInstance;
+- (NSDictionary *)_nowPlayingInfo;
 - (BOOL)playForEventSource:(long long)arg1;
 - (BOOL)pauseForEventSource:(long long)arg1;
 @end
