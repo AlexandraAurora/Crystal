@@ -10,6 +10,8 @@
 #import "../Preferences/PreferenceKeys.h"
 #import "../Preferences/NotificationKeys.h"
 
+CGFloat const kZeroVolumeThreshold = 0.1;
+
 NSUserDefaults* preferences;
 BOOL pfEnabled;
 CGFloat pfVolumeThreshold;

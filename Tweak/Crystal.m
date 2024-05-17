@@ -20,11 +20,18 @@ static void override_SBVolumeControl_increaseVolume(SBVolumeControl* self, SEL _
         setListeningMode(pfAboveThresholdMode);
     }
 
-    // Only play music if it was paused before.
-    if ([[objc_getClass("SBMediaController") sharedInstance] _nowPlayingInfo]) {
-        if (pfPauseMusicAtZeroVolume && [self _effectiveVolume] >= 0) {
-            [[objc_getClass("SBMediaController") sharedInstance] playForEventSource:0];
+    if (pfPauseMusicAtZeroVolume) {
+        // Only play music if it was paused before.
+        if (![[objc_getClass("SBMediaController") sharedInstance] _nowPlayingInfo]) {
+            return;
         }
+
+        // Only play music if the volume is at/close to 0.
+        if ([self _effectiveVolume] > kZeroVolumeThreshold) {
+            return;
+        }
+
+        [[objc_getClass("SBMediaController") sharedInstance] playForEventSource:0];
     }
 }
 
@@ -39,8 +46,8 @@ static void override_SBVolumeControl_decreaseVolume(SBVolumeControl* self, SEL _
         setListeningMode(pfBelowThresholdMode);
     }
 
-    // Using 0.05 as the threshold is more accurate than 0 from my testing.
-    if (pfPauseMusicAtZeroVolume && [self _effectiveVolume] < 0.05) {
+    // Using a higher value as the threshold is more accurate than 0 from my testing.
+    if (pfPauseMusicAtZeroVolume && [self _effectiveVolume] < kZeroVolumeThreshold) {
         [[objc_getClass("SBMediaController") sharedInstance] pauseForEventSource:0];
     }
 }
