@@ -1,5 +1,5 @@
 //
-// Crystal.m
+//  Crystal.m
 //  Crystal
 //
 //  Created by Alexandra Aurora Göttlicher
@@ -10,7 +10,7 @@
 #pragma mark - ExampleClass class hooks
 
 /**
- * Example hook.
+ * Handles what should happen on volume increase.
  */
 static void (* orig_SBVolumeControl_increaseVolume)(SBVolumeControl* self, SEL _cmd);
 static void override_SBVolumeControl_increaseVolume(SBVolumeControl* self, SEL _cmd) {
@@ -29,7 +29,7 @@ static void override_SBVolumeControl_increaseVolume(SBVolumeControl* self, SEL _
 }
 
 /**
- * Example hook.
+ * Handles what should happen on volume decrease.
  */
 static void (* orig_SBVolumeControl_decreaseVolume)(SBVolumeControl* self, SEL _cmd);
 static void override_SBVolumeControl_decreaseVolume(SBVolumeControl* self, SEL _cmd) {
@@ -45,6 +45,11 @@ static void override_SBVolumeControl_decreaseVolume(SBVolumeControl* self, SEL _
     }
 }
 
+/**
+ * Sets the listening mode.
+ *
+ * @param mode The listening mode to set.
+ */
 void setListeningMode(NSString* mode) {
     MPAVRoutingController* routingController = [[objc_getClass("SBMediaController") sharedInstance] valueForKey:@"_routingController"];
     MPAVRoute* pickedRoute = [routingController pickedRoute];
