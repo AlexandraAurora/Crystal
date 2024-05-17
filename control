@@ -1,6 +1,6 @@
 Package: codes.aurora.crystal
 Name: Crystal
-Version: 1.0.1
+Version: 1.0.2
 Architecture: iphoneos-arm
 Description: Control your headphone's listening mode with the volume buttons.
 Maintainer: Alexandra Aurora Göttlicher
