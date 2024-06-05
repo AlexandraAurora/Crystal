@@ -6,6 +6,10 @@
 //
 
 #include "CrystalRootListController.h"
+#import <Preferences/PSSpecifier.h>
+#import <rootless.h>
+#import "../PreferenceKeys.h"
+#import "../NotificationKeys.h"
 
 @implementation CrystalRootListController
 /**
