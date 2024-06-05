@@ -3,7 +3,7 @@ name: Feature Request
 about: Suggest a feature for Crystal.
 title: ''
 labels: enhancement
-assignees: vyolit
+assignees: AlexandraAurora
 
 ---
 
