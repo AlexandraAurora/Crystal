@@ -17,6 +17,6 @@ NSString* const kListeningModeNormal = @"AVOutputDeviceBluetoothListeningModeNor
 NSString* const kListeningModeActiveNoiseCancellation = @"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation";
 
 static BOOL const kPreferenceKeyEnabledDefaultValue = YES;
-static CGFloat const kPreferenceKeyVolumeThresholdDefaultValue = 0.3;
+static CGFloat const kPreferenceKeyVolumeThresholdDefaultValue = 0.4;
 static NSString* const kPreferenceKeyBelowThresholdModeDefaultValue = kListeningModeAudioTransparency;
 static NSString* const kPreferenceKeyAboveThresholdModeDefaultValue = kListeningModeActiveNoiseCancellation;
