@@ -22,20 +22,6 @@ static void override_SBVolumeControl_increaseVolume(SBVolumeControl* self, SEL _
     if ([self _effectiveVolume] > pfVolumeThreshold) {
         setListeningMode(pfAboveThresholdMode);
     }
-
-    if (pfPauseMusicAtZeroVolume) {
-        // Only play music if it was paused before.
-        if (![[objc_getClass("SBMediaController") sharedInstance] _nowPlayingInfo]) {
-            return;
-        }
-
-        // Only play music if the volume is at/close to 0.
-        if ([self _effectiveVolume] > kZeroVolumeThreshold) {
-            return;
-        }
-
-        [[objc_getClass("SBMediaController") sharedInstance] playForEventSource:0];
-    }
 }
 
 /**
@@ -47,11 +33,6 @@ static void override_SBVolumeControl_decreaseVolume(SBVolumeControl* self, SEL _
 
     if ([self _effectiveVolume] < pfVolumeThreshold) {
         setListeningMode(pfBelowThresholdMode);
-    }
-
-    // Using a higher value as the threshold is more accurate than 0 from my testing.
-    if (pfPauseMusicAtZeroVolume && [self _effectiveVolume] < kZeroVolumeThreshold) {
-        [[objc_getClass("SBMediaController") sharedInstance] pauseForEventSource:0];
     }
 }
 
@@ -80,15 +61,13 @@ static void load_preferences() {
         kPreferenceKeyEnabled: @(kPreferenceKeyEnabledDefaultValue),
         kPreferenceKeyVolumeThreshold: @(kPreferenceKeyVolumeThresholdDefaultValue),
         kPreferenceKeyBelowThresholdMode: kPreferenceKeyBelowThresholdModeDefaultValue,
-        kPreferenceKeyAboveThresholdMode: kPreferenceKeyAboveThresholdModeDefaultValue,
-        kPreferenceKeyPauseMusicAtZeroVolume: @(kPreferenceKeyPauseMusicAtZeroVolumeDefaultValue)
+        kPreferenceKeyAboveThresholdMode: kPreferenceKeyAboveThresholdModeDefaultValue
     }];
 
     pfEnabled = [[preferences objectForKey:kPreferenceKeyEnabled] boolValue];
     pfVolumeThreshold = [[preferences objectForKey:kPreferenceKeyVolumeThreshold] floatValue];
     pfBelowThresholdMode = [preferences objectForKey:kPreferenceKeyBelowThresholdMode];
     pfAboveThresholdMode = [preferences objectForKey:kPreferenceKeyAboveThresholdMode];
-    pfPauseMusicAtZeroVolume = [[preferences objectForKey:kPreferenceKeyPauseMusicAtZeroVolume] boolValue];
 }
 
 #pragma mark - Constructor
